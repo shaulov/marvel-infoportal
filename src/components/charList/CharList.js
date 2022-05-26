@@ -10,6 +10,7 @@ class CharList extends Component {
         charList: [],
         loading: true,
         error: false,
+        selectedItem: null,
     }
 
     marvelService = new MarvelService();
@@ -41,6 +42,13 @@ class CharList extends Component {
         });
     }
 
+    charSelectedHandle = (id) => {
+        this.setState({
+            selectedItem: id,
+        });
+        this.props.onCharSelected(id);
+    }
+
     renderItems = (arr) => {
         const items = arr.map((item) => {
             let imgStyle = {objectFit: 'cover'};
@@ -48,8 +56,16 @@ class CharList extends Component {
                 imgStyle = {objectFit: 'fill'};
             }
 
+            let className = 'char__item ';
+            if (item.id === this.state.selectedItem) {
+                className += 'char__item_selected';
+            }
+
             return (
-                <li className="char__item" key={item.id}>
+                <li 
+                    className={className}
+                    key={item.id}
+                    onClick={() => this.charSelectedHandle(item.id)}>
                     <img src={item.thumbnail} alt="Character item" style={imgStyle}/>
                     <div className="char__name">{item.name}</div>
                 </li>
