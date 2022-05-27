@@ -28,8 +28,14 @@ class CharList extends Component {
         window.removeEventListener('scroll', this.onScroll);
     }
     
-    onScroll = (evt) => {
-        console.log(evt);
+    onScroll = () => {
+        if (this.state.newItemLoading) return;
+        if (this.state.charEnded) {
+            window.removeEventListener('scroll', this.onScroll);
+        }
+        if (window.pageYOffset + window.innerHeight >= document.body.offsetHeight) {
+            this.onRequest(this.state.offset);
+        }
     }
 
     onRequest = (offset) => {
