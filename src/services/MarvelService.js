@@ -1,6 +1,7 @@
 class MarvelService {
     #apiBase = 'https://gateway.marvel.com:443/v1/public/';
     #apiKey = 'apikey=79aa42515873b8889610444e14ec4446';
+    #baseOffset = 210;
 
     DESCRIPTION_PLACEHOLDER = 'Character has no description';
     DESCRIPTION_LENGTH = 210;
@@ -15,8 +16,8 @@ class MarvelService {
         return await result.json();
     }
 
-    getAllCharacters = async () => {
-        const res = await this.getResource(`${this.#apiBase}characters?limit=9&offset=210&${this.#apiKey}`);
+    getAllCharacters = async (offset = this.#baseOffset) => {
+        const res = await this.getResource(`${this.#apiBase}characters?limit=9&offset=${offset}&${this.#apiKey}`);
         return res.data.results.map(this.#transformCharacter);
     }
 
