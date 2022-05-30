@@ -12,7 +12,6 @@ class CharList extends Component {
         charList: [],
         loading: true,
         error: false,
-        selectedItem: null,
         newItemLoading: false,
         offset: 210,
         charEnded: false,
@@ -73,30 +72,41 @@ class CharList extends Component {
         })
     }
 
-    charSelectedHandle = (id) => {
-        this.setState({
-            selectedItem: id,
-        });
-        this.props.onCharSelected(id);
+    itemRefs = [];
+
+    setRef = (ref) => {
+        this.itemRefs.push(ref);
+    }
+
+    focusOnItem = (id) => {
+        this.itemRefs.forEach(item => item.classList.remove('char__item_selected'));
+        this.itemRefs[id].classList.add('char__item_selected');
+        this.itemRefs[id].focus();
     }
 
     renderItems = (arr) => {
-        const items = arr.map((item) => {
+        const items = arr.map((item, i) => {
             let imgStyle = {objectFit: 'cover'};
             if (item.thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
                 imgStyle = {objectFit: 'fill'};
             }
 
-            let className = 'char__item ';
-            if (item.id === this.state.selectedItem) {
-                className += 'char__item_selected';
-            }
-
             return (
                 <li 
-                    className={className}
+                    className="char__item"
+                    ref={this.setRef}
                     key={item.id}
-                    onClick={() => this.charSelectedHandle(item.id)}>
+                    onClick={() => {
+                        this.props.onCharSelected(item.id);
+                        this.focusOnItem(i);
+                    }}
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                        if(e.key === 'Enter') {
+                            this.props.onCharSelected(item.id);
+                            this.focusOnItem(i);
+                        }
+                    }}>    
                     <img src={item.thumbnail} alt="Character item" style={imgStyle}/>
                     <div className="char__name">{item.name}</div>
                 </li>
