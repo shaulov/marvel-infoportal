@@ -22,6 +22,16 @@ const useMarvelService = () => {
         return _transformCharacter(res.data.results[0]);
     }
 
+    const getAllComics = async (offset = 10) => {
+        const res = await request(`${_apiBase}comics?orderBy=issueNumber&limit=8&offset=${offset}&${_apiKey}`);
+        return res.data.results.map(_transformComics);
+    }
+
+    // const getComics = async (id) => {
+    //     const res = await request(`${_apiBase}characters/${id}?${_apiKey}`);
+    //     return _transformCharacter(res.data.results[0]);
+    // }
+
     const _transformCharacter = (char) => {
 
         let description = char.description ? `${char.description.substring(0, DESCRIPTION_LENGTH)}...` : DESCRIPTION_PLACEHOLDER;
@@ -37,7 +47,20 @@ const useMarvelService = () => {
         };
     }
 
-    return {loading, error, getAllCharacters, getCharacter, clearError};
+    const _transformComics = (comics) => {
+
+        const price = comics.prices[0].price === 0 ? 'NOT AVALIABLE' : comics.prices[0].price;
+
+        return {
+            id: comics.id,
+            title: comics.title,
+            thumbnail: `${comics.thumbnail.path}.${comics.thumbnail.extension}`,
+            details: comics.urls[0].url,
+            price: price,
+        };
+    }
+
+    return {loading, error, getAllCharacters, getCharacter, getAllComics, clearError};
 }
 
 export default useMarvelService;
