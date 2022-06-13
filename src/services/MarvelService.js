@@ -49,7 +49,7 @@ const useMarvelService = () => {
 
     const _transformComics = (comics) => {
 
-        const price = comics.prices[0].price === 0 ? 'NOT AVALIABLE' : comics.prices[0].price;
+        const price = comics.prices[0].price ? `${comics.prices[0].price}$` : 'not available';
 
         return {
             id: comics.id,
