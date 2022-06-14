@@ -49,10 +49,9 @@ const useMarvelService = () => {
 
     const _transformComics = (comics) => {
 
-        const price = comics.prices[0].price ? `${comics.prices[0].price}$` : 'not available';
-        const pageCount = comics.pageCount ? `${comics.pageCount} pages` : 'no data';
-        const description = comics.textObjects.text ? comics.textObjects.text : 'Comic has no description';
-        const language = comics.textObjects.language ? comics.textObjects.language: 'no data';
+        const price = comics.prices[0].price ? `${comics.prices[0].price}$` : 'Not available';
+        const pageCount = comics.pageCount ? `${comics.pageCount} pages` : 'Does not contain information about the number of pages';
+        const description = comics.description ? comics.description : 'Comic has no description';
 
         return {
             id: comics.id,
@@ -62,7 +61,7 @@ const useMarvelService = () => {
             price: price,
             pageCount: pageCount,
             description: description,
-            language: language,
+            language: comics.textObjects.language || 'en-us',
         };
     }
 
