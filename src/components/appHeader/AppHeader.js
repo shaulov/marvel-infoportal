@@ -17,7 +17,6 @@ const AppHeader = () => {
                         to="/">Characters</NavLink></li>
                     /
                     <li><NavLink 
-                        end 
                         className={({isActive}) => isActive ? "selected" : ""}
                         to="/comics">Comics</NavLink></li>
                 </ul>
