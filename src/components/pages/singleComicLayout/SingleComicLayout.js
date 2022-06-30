@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import './singleComicPage.scss';
+import './singleComicLayout.scss';
 
 const SingleComicLayout = ({ data }) => {
 	const { title, thumbnail, price, pageCount, description, language } = data;
