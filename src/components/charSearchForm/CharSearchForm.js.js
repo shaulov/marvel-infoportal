@@ -21,7 +21,7 @@ const CharSearchForm = () => {
 		setChar(char);
 	};
 
-	const onUpdateSearch = (name) => {
+	const updateChar = (name) => {
 		clearError();
 		getCharacterByName(name).then(onCharLoaded);
 	};
@@ -32,24 +32,20 @@ const CharSearchForm = () => {
 		</div>
 	) : null;
 
-	const result =
-		char && char.length > 0 ? (
-			<div className="char__search-wrapper">
-				<div className="char__search-success">
-					There is! Visit {char[0].name} page?
-				</div>
-				<Link
-					to={`/${char[0].id}`}
-					className="button button__secondary"
-				>
-					<div className="inner">to page</div>
-				</Link>
+	const result = !char ? null : char.length > 0 ? (
+		<div className="char__search-wrapper">
+			<div className="char__search-success">
+				There is! Visit {char[0].name} page?
 			</div>
-		) : (
-			<div className="char__search-error">
-				The character was not found. Check the name and try again
-			</div>
-		);
+			<Link to={`/${char[0].id}`} className="button button__secondary">
+				<div className="inner">to page</div>
+			</Link>
+		</div>
+	) : (
+		<div className="char__search-error">
+			The character was not found. Check the name and try again
+		</div>
+	);
 
 	return (
 		<div className="char__search-form">
@@ -62,7 +58,7 @@ const CharSearchForm = () => {
 					}
 					return errors;
 				}}
-				onSubmit={({ search }) => onUpdateSearch(search)}
+				onSubmit={({ search }) => updateChar(search)}
 			>
 				<Form>
 					<label className="char__search-label" htmlFor="charName">
