@@ -6,8 +6,6 @@ import Spinner from '../../spinner/Spinner';
 import ErrorMessage from '../../errorMessage/ErrorMessage';
 import AppBanner from '../../AppBanner/AppBanner';
 
-import '../singleComicPage/SingleComicPage';
-
 const SinglePage = ({ Component, dataType }) => {
 	const { id } = useParams();
 	const [data, setData] = useState(null);
