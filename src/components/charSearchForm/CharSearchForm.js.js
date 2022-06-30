@@ -39,7 +39,7 @@ const CharSearchForm = () => {
 					There is! Visit {char[0].name} page?
 				</div>
 				<Link
-					to={`/characters/${char[0].id}`}
+					to={`/${char[0].id}`}
 					className="button button__secondary"
 				>
 					<div className="inner">to page</div>
