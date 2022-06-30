@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import '../singleComicLayout/Singlet';
+import './singleCharLayout.scss';
 
 const SingleCharLayout = ({ data }) => {
 	const { name, thumbnail, fullDescription } = data;
