@@ -42,14 +42,18 @@ const useMarvelService = () => {
 	};
 
 	const _transformCharacter = (char) => {
-		let description = char.description
+		const description = char.description
 			? `${char.description.substring(0, DESCRIPTION_LENGTH)}...`
+			: DESCRIPTION_PLACEHOLDER;
+		const fullDescription = char.description
+			? char.description
 			: DESCRIPTION_PLACEHOLDER;
 
 		return {
 			id: char.id,
 			name: char.name,
 			description: description,
+			fullDescription: fullDescription,
 			thumbnail: `${char.thumbnail.path}.${char.thumbnail.extension}`,
 			homepage: char.urls[0].url,
 			wiki: char.urls[1].url,
